@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heart Disease Prediction</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Heart Disease Risk Prediction</h1>
+        
+        <form action="/predict" method="post">
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" min="20" max="100" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="cp">Chest Pain Type:</label>
+                <select id="cp" name="cp" required>
+                    <option value="">Select chest pain type</option>
+                    <option value="0">0: Typical angina</option>
+                    <option value="1">1: Atypical angina</option>
+                    <option value="2">2: Non-anginal pain</option>
+                    <option value="3">3: Asymptomatic</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="thalach">Maximum Heart Rate (thalach):</label>
+                <input type="number" id="thalach" name="thalach" min="60" max="220" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="exang">Exercise Induced Angina:</label>
+                <select id="exang" name="exang" required>
+                    <option value="">Select option</option>
+                    <option value="0">0: No</option>
+                    <option value="1">1: Yes</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="oldpeak">ST Depression (oldpeak):</label>
+                <input type="number" id="oldpeak" name="oldpeak" step="0.1" min="0" max="10" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="ca">Number of Major Vessels:</label>
+                <select id="ca" name="ca" required>
+                    <option value="">Select number of vessels</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="thal">Thalassemia:</label>
+                <select id="thal" name="thal" required>
+                    <option value="">Select thalassemia type</option>
+                    <option value="1">1: Normal</option>
+                    <option value="2">2: Fixed defect</option>
+                    <option value="3">3: Reversible defect</option>
+                </select>
+            </div>
+            
+            <button type="submit">Predict</button>
+        </form>
+        
+        {% if result %}
+        <div class="result">
+            <h2>Prediction Result:</h2>
+            <p><strong>Risk Level:</strong> {{ result.interpretation }}</p>
+            <p><strong>Probability:</strong> {{ "%.2f"|format(result.probability * 100) }}%</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
